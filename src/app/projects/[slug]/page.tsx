@@ -37,7 +37,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <main className="min-h-screen bg-ivory text-ink dark:bg-ink dark:text-ivory">
       <div className="mx-auto flex w-full max-w-6xl flex-col px-5 py-6 sm:px-8 lg:px-12">
-        <nav className="flex items-center justify-between border-b border-ink/15 pb-5 text-sm uppercase tracking-[0.18em] dark:border-ivory/15">
+        <nav className="flex items-center justify-between border-b border-ink/15 pb-5 text-sm dark:border-ivory/15">
           <Link href="/" className="font-semibold">
             Vivek Ray
           </Link>
@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span className="status-pill">{project.status}</span>
           </div>
           <div>
-            <h1 className="max-w-4xl text-6xl font-black uppercase leading-[0.9] sm:text-8xl lg:text-9xl">
+            <h1 className="display-title max-w-4xl text-6xl leading-[0.95] tracking-[-0.03em] sm:text-8xl lg:text-9xl">
               {project.name}
             </h1>
             <p className="mt-8 max-w-3xl text-3xl font-semibold leading-tight text-green dark:text-sage">
@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <section className="space-y-12 pb-20">
           {project.caseStudy.sections.map((section) => (
             <article key={section.title} className="grid gap-6 border-t border-ink/15 pt-8 dark:border-ivory/15 lg:grid-cols-[0.45fr_1fr]">
-              <h2 className="text-2xl font-bold uppercase">{section.title}</h2>
+              <h2 className="text-2xl font-semibold tracking-[-0.01em]">{section.title}</h2>
               <p className="max-w-3xl text-lg leading-8 text-ink/75 dark:text-ivory/72">{section.body}</p>
             </article>
           ))}

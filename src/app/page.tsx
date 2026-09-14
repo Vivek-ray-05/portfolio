@@ -1,12 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { OsProVisual, RahatVisual, SchemaVisual } from "@/components/project-visuals";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { projects, skills } from "@/data/projects";
 
 const profiles = [
   { label: "GitHub", value: "Project repositories and build history", href: "https://github.com/Vivek-ray-05" },
-  { label: "LeetCode", value: "Java-first problem solving practice", href: "#" },
-  { label: "Resume", value: "Available as the source of truth gets finalized", href: "#" },
+  { label: "LeetCode", value: "Java-first problem solving practice", href: "" },
+  { label: "Resume", value: "Available as the source of truth gets finalized", href: "" },
 ];
 
 const milestones = [
@@ -27,11 +28,14 @@ export default function Home() {
   return (
     <main className="paper-noise min-h-screen overflow-hidden bg-ivory text-ink dark:bg-ink dark:text-ivory">
       <header className="sticky top-0 z-50 border-b border-ink/10 bg-ivory/82 backdrop-blur-xl dark:border-ivory/10 dark:bg-ink/82">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-          <Link href="/" className="text-base font-black uppercase tracking-[0.16em]">
-            Vivek Ray.
-          </Link>
-          <div className="hidden items-center gap-8 text-sm font-medium sm:flex">
+        <nav className="mx-auto grid max-w-7xl gap-4 px-5 py-4 sm:flex sm:items-center sm:justify-between sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/" className="text-base font-semibold tracking-[0.02em]">
+              Vivek Ray.
+            </Link>
+            <ThemeToggle />
+          </div>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium">
             <a className="nav-link" href="#work">
               Work
             </a>
@@ -45,21 +49,17 @@ export default function Home() {
               GitHub
             </a>
           </div>
-          <ThemeToggle />
         </nav>
       </header>
 
       <section className="relative mx-auto grid min-h-[88vh] max-w-7xl content-between px-5 py-12 sm:px-8 lg:px-12">
-        <div className="organic-field" />
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-          <div>
+        <div className="hero-shell">
+          <div className="hero-copy">
             <p className="meta-label mb-8">Bengaluru, India / CSE undergraduate</p>
-            <h1 className="display-title max-w-5xl text-[5.2rem] font-bold uppercase leading-[0.78] sm:text-[8.6rem] lg:text-[11.4rem]">
-              I learn by building things.
+            <h1 className="display-title max-w-4xl text-[4rem] leading-[0.9] tracking-[-0.04em] sm:text-[6.6rem] lg:text-[7.6rem]">
+              I learn by <span className="text-green">building things.</span>
             </h1>
-          </div>
-          <div className="max-w-md pb-4">
-            <p className="text-xl leading-8 text-ink/72 dark:text-ivory/74">
+            <p className="mt-8 max-w-2xl text-xl leading-8 text-ink/72 dark:text-ivory/74">
               CSE undergraduate building software, exploring AI, and figuring things out one project at a time.
             </p>
             <div className="mt-8 flex flex-wrap gap-5">
@@ -70,6 +70,33 @@ export default function Home() {
                 About
               </a>
             </div>
+          </div>
+
+          <div className="portrait-stage" aria-label="Portrait of Vivek Ray">
+            <div className="portrait-halo halo-main" />
+            <div className="portrait-halo halo-soft" />
+            <div className="orbit-ring orbit-ring-one" />
+            <div className="orbit-ring orbit-ring-two" />
+            <span className="orbit-dot dot-one" />
+            <span className="orbit-dot dot-two" />
+            <span className="orbit-dot dot-three" />
+            <div className="identity-card card-primary">
+              <span>Working note</span>
+              <strong>I learn by building things.</strong>
+            </div>
+            <div className="identity-card card-secondary">
+              <span>Process</span>
+              <strong>Build first. Understand deeply.</strong>
+            </div>
+            <Image
+              src="/assets/vivek-profile.png"
+              alt="Vivek Ray portrait"
+              width={1346}
+              height={1168}
+              priority
+              unoptimized
+              className="profile-portrait"
+            />
           </div>
         </div>
         <div className="relative z-10 mt-16 grid gap-4 border-t border-ink/15 pt-5 text-sm text-ink/62 dark:border-ivory/15 dark:text-ivory/62 sm:grid-cols-3">
@@ -83,7 +110,7 @@ export default function Home() {
         <div className="mb-12 flex items-end justify-between gap-6">
           <div>
             <p className="meta-label">Selected work</p>
-            <h2 className="display-title mt-3 text-5xl font-semibold uppercase sm:text-7xl">Substance first.</h2>
+            <h2 className="display-title mt-3 text-5xl leading-tight tracking-[-0.02em] sm:text-7xl">Substance first.</h2>
           </div>
           <p className="hidden max-w-sm text-right text-ink/65 dark:text-ivory/65 md:block">
             Three projects, three different strengths: systems engineering, interactive fundamentals, and database depth.
@@ -95,7 +122,7 @@ export default function Home() {
             <p className="meta-label">
               {rahat.index} / {rahat.eyebrow}
             </p>
-            <h3 className="display-title text-7xl font-bold uppercase leading-[0.85] sm:text-8xl">{rahat.name}</h3>
+            <h3 className="display-title text-6xl leading-[0.92] tracking-[-0.02em] sm:text-8xl">{rahat.name}</h3>
             <p className="text-4xl font-semibold leading-none text-green dark:text-sage">{rahat.headline}</p>
             <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{rahat.summary}</p>
             <div className="flex flex-wrap gap-2">
@@ -109,12 +136,8 @@ export default function Home() {
               <Link className="link-button" href={rahat.links.caseStudy}>
                 View case study
               </Link>
-              <a className="link-button" href={rahat.links.demo}>
-                Live demo
-              </a>
-              <a className="link-button" href={rahat.links.github}>
-                GitHub
-              </a>
+              <span className="muted-link">Demo link coming soon</span>
+              <span className="muted-link">Repo link coming soon</span>
             </div>
           </div>
           <ProjectVisual slug={rahat.slug} />
@@ -126,7 +149,7 @@ export default function Home() {
             <p className="meta-label">
               {osPro.index} / {osPro.eyebrow}
             </p>
-            <h3 className="display-title text-6xl font-bold uppercase leading-[0.88] sm:text-7xl">{osPro.name}</h3>
+            <h3 className="display-title text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">{osPro.name}</h3>
             <p className="text-3xl font-semibold leading-tight text-green dark:text-sage">{osPro.headline}</p>
             <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{osPro.summary}</p>
             <Link className="link-button" href={osPro.links.caseStudy}>
@@ -143,7 +166,7 @@ export default function Home() {
               </p>
               <span className="status-pill">{schemaLenz.status}</span>
             </div>
-            <h3 className="display-title text-6xl font-bold uppercase leading-[0.88] sm:text-7xl">{schemaLenz.name}</h3>
+            <h3 className="display-title text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">{schemaLenz.name}</h3>
             <p className="text-3xl font-semibold leading-tight text-green dark:text-sage">{schemaLenz.headline}</p>
             <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{schemaLenz.summary}</p>
             <Link className="link-button" href={schemaLenz.links.caseStudy}>
@@ -164,7 +187,7 @@ export default function Home() {
           </div>
         </div>
         <div className="max-w-3xl">
-          <h2 className="display-title text-5xl font-semibold uppercase leading-none sm:text-7xl">
+          <h2 className="display-title text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
             I tend to understand things better once I try building them.
           </h2>
           <p className="mt-8 text-xl leading-9 text-ink/74 dark:text-ivory/72">
@@ -178,7 +201,7 @@ export default function Home() {
       <section className="section-rule mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.65fr_1.35fr] lg:px-12">
         <div>
           <p className="meta-label">Milestones</p>
-          <h2 className="display-title mt-3 text-5xl font-semibold uppercase">Currently building.</h2>
+          <h2 className="display-title mt-3 text-5xl tracking-[-0.02em]">Currently building.</h2>
         </div>
         <div className="space-y-7">
           {milestones.map((item, index) => (
@@ -195,8 +218,13 @@ export default function Home() {
           <p className="meta-label">Problem solving / profiles</p>
           <div className="mt-8 space-y-5">
             {profiles.map((profile) => (
-              <a href={profile.href} key={profile.label} className="group block border-t border-ink/15 py-5 dark:border-ivory/15">
-                <span className="display-title text-4xl font-semibold uppercase group-hover:text-vermilion">{profile.label}</span>
+              <a
+                href={profile.href || undefined}
+                key={profile.label}
+                aria-disabled={!profile.href}
+                className="group block border-t border-ink/15 py-5 dark:border-ivory/15"
+              >
+                <span className="display-title text-4xl tracking-[-0.01em] group-hover:text-vermilion">{profile.label}</span>
                 <p className="mt-2 text-ink/65 dark:text-ivory/65">{profile.value}</p>
               </a>
             ))}
@@ -219,7 +247,7 @@ export default function Home() {
         <div className="border-y border-ink/15 py-16 dark:border-ivory/15">
           <p className="meta-label">Contact</p>
           <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <h2 className="display-title text-6xl font-bold uppercase leading-[0.86] sm:text-8xl">
+            <h2 className="display-title text-5xl leading-[0.96] tracking-[-0.025em] sm:text-7xl">
               Have something interesting in mind?
             </h2>
             <div>
@@ -233,9 +261,7 @@ export default function Home() {
                 <a className="link-button" href="https://github.com/Vivek-ray-05" target="_blank" rel="noreferrer">
                   GitHub
                 </a>
-                <a className="link-button" href="#">
-                  LinkedIn
-                </a>
+                <span className="muted-link">LinkedIn coming soon</span>
               </div>
             </div>
           </div>

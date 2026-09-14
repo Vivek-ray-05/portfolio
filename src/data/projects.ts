@@ -35,8 +35,6 @@ export const projects: Project[] = [
     stack: ["FastAPI", "React", "PostgreSQL", "Redis", "WebSockets", "NetworkX"],
     links: {
       caseStudy: "/projects/rahat",
-      demo: "#",
-      github: "#",
     },
     highlights: [
       "28 Bengaluru localities with elevation, density, hospitals, shelters, and road-network data.",
@@ -77,8 +75,6 @@ export const projects: Project[] = [
     stack: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Framer Motion"],
     links: {
       caseStudy: "/projects/os-pro",
-      demo: "#",
-      github: "#",
     },
     highlights: [
       "CPU scheduling includes FCFS, SJF, SRTF, Round Robin, and Priority scheduling.",
@@ -119,7 +115,6 @@ export const projects: Project[] = [
     stack: ["Java", "Spring Boot", "JSqlParser", "Algorithms", "B+ Trees", "Query Planning"],
     links: {
       caseStudy: "/projects/schemalenz",
-      github: "#",
     },
     highlights: [
       "Pipeline moves from flat files to FD closure, minimal cover, 3NF, BCNF, and decomposition.",
