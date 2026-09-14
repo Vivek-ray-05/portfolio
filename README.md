@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vivek Ray Portfolio
 
-## Getting Started
+Personal portfolio for Vivek Ray, a B.Tech Computer Science undergraduate who learns by building software systems, interactive tools, and technical experiments.
 
-First, run the development server:
+The V1 direction is a warm editorial portfolio with restrained playful interaction. The site prioritizes substantial project work over buzzwords, with RAHAT, OS-PRO, and SchemaLenz as the flagship projects.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- pnpm
+
+## Project Structure
+
+```txt
+src/app
+  page.tsx                 Homepage
+  projects/[slug]/page.tsx Project case-study route
+
+src/components
+  project-visuals.tsx      Lightweight project-specific visual systems
+  theme-toggle.tsx         Light/dark theme control
+
+src/data
+  projects.ts              Project and skills content
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open `http://localhost:3000`.
 
-## Learn More
+## Checks
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm lint
+pnpm build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Git Workflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Development is committed at checkpoints so the repository shows a real build history instead of a single final dump.
 
-## Deploy on Vercel
+Current commit author for this repository:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```txt
+Vivek-ray-05 <realvivek100@gmail.com>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No generated co-author footer is used in commits.
