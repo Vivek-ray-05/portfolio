@@ -268,33 +268,45 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-rule mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:px-12">
-        <div>
-          <p className="meta-label">Problem solving / profiles</p>
-          <div className="mt-8 space-y-5">
+      <section className="signals-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="signals-panel">
+        <div className="profile-column">
+          <div>
+            <p className="meta-label">Signals</p>
+            <h2 className="display-title">Profiles, practice, proof.</h2>
+          </div>
+          <div className="profile-list">
             {profiles.map((profile) => (
               <a
                 href={profile.href || undefined}
                 key={profile.label}
                 aria-disabled={!profile.href}
-                className="group block border-t border-ink/15 py-5 dark:border-ivory/15"
+                className="profile-link"
               >
-                <span className="display-title text-4xl tracking-[-0.01em] group-hover:text-vermilion">{profile.label}</span>
-                <p className="mt-2 text-ink/65 dark:text-ivory/65">{profile.value}</p>
+                <span>{profile.label}</span>
+                <p>{profile.value}</p>
               </a>
             ))}
           </div>
         </div>
-        <div>
-          <p className="meta-label">Skills</p>
-          <div className="mt-8 grid gap-6">
+        <div className="skills-column">
+          <div>
+            <p className="meta-label">Skills</p>
+            <h2 className="display-title">Stack I can build with.</h2>
+          </div>
+          <div className="skills-list">
             {Object.entries(skills).map(([category, items]) => (
-              <div className="grid gap-3 border-t border-ink/15 pt-5 dark:border-ivory/15 sm:grid-cols-[10rem_1fr]" key={category}>
-                <h3 className="font-semibold">{category}</h3>
-                <p className="leading-8 text-ink/70 dark:text-ivory/70">{items.join(" / ")}</p>
+              <div className="skill-row" key={category}>
+                <h3>{category}</h3>
+                <div>
+                  {items.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </section>
 
