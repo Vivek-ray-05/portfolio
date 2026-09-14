@@ -135,33 +135,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="work" className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
-        <div className="mb-12 flex items-end justify-between gap-6">
+      <section id="work" className="work-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="work-header">
           <div>
             <p className="meta-label">Selected work</p>
-            <h2 className="display-title mt-3 text-5xl leading-tight tracking-[-0.02em] sm:text-7xl">Substance first.</h2>
+            <h2 className="display-title">Substance first.</h2>
           </div>
-          <p className="hidden max-w-sm text-right text-ink/65 dark:text-ivory/65 md:block">
+          <p>
             Three projects, three different strengths: systems engineering, interactive fundamentals, and database depth.
           </p>
         </div>
 
-        <article className="section-rule grid gap-8 py-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-          <div className="space-y-6">
+        <article className="case-study case-study-featured">
+          <div className="case-copy">
             <p className="meta-label">
               {rahat.index} / {rahat.eyebrow}
             </p>
-            <h3 className="display-title text-6xl leading-[0.92] tracking-[-0.02em] sm:text-8xl">{rahat.name}</h3>
-            <p className="text-4xl font-semibold leading-none text-green dark:text-sage">{rahat.headline}</p>
-            <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{rahat.summary}</p>
-            <div className="flex flex-wrap gap-2">
+            <h3 className="display-title">{rahat.name}</h3>
+            <p className="case-headline">{rahat.headline}</p>
+            <p className="case-summary">{rahat.summary}</p>
+            <div className="case-stack">
               {rahat.stack.slice(0, 4).map((item) => (
                 <span className="tech-pill" key={item}>
                   {item}
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap gap-5">
+            <div className="case-links">
               <Link className="link-button" href={rahat.links.caseStudy}>
                 View case study
               </Link>
@@ -169,40 +169,50 @@ export default function Home() {
               <span className="muted-link">Repo link coming soon</span>
             </div>
           </div>
-          <ProjectVisual slug={rahat.slug} />
-        </article>
-
-        <article className="section-rule grid gap-8 py-14 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-          <ProjectVisual slug={osPro.slug} />
-          <div className="space-y-6 lg:pl-8">
-            <p className="meta-label">
-              {osPro.index} / {osPro.eyebrow}
-            </p>
-            <h3 className="display-title text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">{osPro.name}</h3>
-            <p className="text-3xl font-semibold leading-tight text-green dark:text-sage">{osPro.headline}</p>
-            <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{osPro.summary}</p>
-            <Link className="link-button" href={osPro.links.caseStudy}>
-              View case study
-            </Link>
+          <div className="case-visual">
+            <ProjectVisual slug={rahat.slug} />
           </div>
         </article>
 
-        <article className="section-rule grid gap-8 py-14 lg:grid-cols-[0.9fr_1fr] lg:items-center">
-          <div className="space-y-6">
-            <div className="flex flex-wrap items-center gap-3">
+        <article className="case-study case-study-reverse">
+          <div className="case-visual">
+            <ProjectVisual slug={osPro.slug} />
+          </div>
+          <div className="case-copy">
+            <p className="meta-label">
+              {osPro.index} / {osPro.eyebrow}
+            </p>
+            <h3 className="display-title">{osPro.name}</h3>
+            <p className="case-headline">{osPro.headline}</p>
+            <p className="case-summary">{osPro.summary}</p>
+            <div className="case-links">
+              <Link className="link-button" href={osPro.links.caseStudy}>
+                View case study
+              </Link>
+            </div>
+          </div>
+        </article>
+
+        <article className="case-study">
+          <div className="case-copy">
+            <div className="case-meta-row">
               <p className="meta-label">
                 {schemaLenz.index} / {schemaLenz.eyebrow}
               </p>
               <span className="status-pill">{schemaLenz.status}</span>
             </div>
-            <h3 className="display-title text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">{schemaLenz.name}</h3>
-            <p className="text-3xl font-semibold leading-tight text-green dark:text-sage">{schemaLenz.headline}</p>
-            <p className="max-w-xl text-lg leading-8 text-ink/72 dark:text-ivory/72">{schemaLenz.summary}</p>
-            <Link className="link-button" href={schemaLenz.links.caseStudy}>
-              View case study
-            </Link>
+            <h3 className="display-title">{schemaLenz.name}</h3>
+            <p className="case-headline">{schemaLenz.headline}</p>
+            <p className="case-summary">{schemaLenz.summary}</p>
+            <div className="case-links">
+              <Link className="link-button" href={schemaLenz.links.caseStudy}>
+                View case study
+              </Link>
+            </div>
           </div>
-          <ProjectVisual slug={schemaLenz.slug} />
+          <div className="case-visual">
+            <ProjectVisual slug={schemaLenz.slug} />
+          </div>
         </article>
       </section>
 
