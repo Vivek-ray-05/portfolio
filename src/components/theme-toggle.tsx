@@ -8,8 +8,12 @@ export function ThemeToggle() {
       return false;
     }
 
-    const storedTheme = window.localStorage.getItem("theme");
-    return storedTheme ? storedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    try {
+      const storedTheme = window.localStorage?.getItem("theme");
+      return storedTheme ? storedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
   });
 
   useEffect(() => {
@@ -20,13 +24,19 @@ export function ThemeToggle() {
     const nextTheme = !isDark;
     setIsDark(nextTheme);
     document.documentElement.classList.toggle("dark", nextTheme);
-    window.localStorage.setItem("theme", nextTheme ? "dark" : "light");
+
+    try {
+      window.localStorage?.setItem("theme", nextTheme ? "dark" : "light");
+    } catch {
+      // Some preview environments block storage; the class toggle still applies.
+    }
   }
 
   return (
     <button
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      suppressHydrationWarning
       onClick={toggleTheme}
       className="group grid size-10 place-items-center rounded-full border border-ink/15 bg-ivory/70 text-ink transition hover:border-green hover:text-green dark:border-ivory/15 dark:bg-ink/70 dark:text-ivory dark:hover:border-sage dark:hover:text-sage"
     >
