@@ -16,6 +16,8 @@ const milestones = [
   "Polishing SchemaLenz as a database-systems project with normalization and query-planning depth.",
 ];
 
+const learningLoop = ["Build", "Trace", "Explain", "Refine"];
+
 const identityNotes = [
   {
     label: "Software systems",
@@ -216,39 +218,53 @@ export default function Home() {
         </article>
       </section>
 
-      <section id="about" className="section-rule mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.75fr_1.25fr] lg:px-12">
-        <div>
+      <section id="about" className="about-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="about-panel">
+        <div className="about-visual-wrap">
           <p className="meta-label">About</p>
-          <div className="mt-8 aspect-[4/5] max-w-sm border border-ink/15 bg-paper p-4 dark:border-ivory/15">
-            <div className="grid h-full place-items-center bg-sage/45 text-center font-mono text-xs uppercase tracking-[0.16em] text-ink/60 dark:text-ivory/60">
-              Photo space
+          <div className="learning-loop" aria-hidden="true">
+            <div className="loop-orbit loop-orbit-one" />
+            <div className="loop-orbit loop-orbit-two" />
+            <div className="loop-core">
+              <span>Current mode</span>
+              <strong>Project-led learning</strong>
+            </div>
+            <div className="loop-steps">
+              {learningLoop.map((item) => (
+                <span key={item}>
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-        <div className="max-w-3xl">
-          <h2 className="display-title text-5xl leading-[1.02] tracking-[-0.02em] sm:text-7xl">
+        <div className="about-copy">
+          <h2 className="display-title">
             I tend to understand things better once I try building them.
           </h2>
-          <p className="mt-8 text-xl leading-9 text-ink/74 dark:text-ivory/72">
+          <p>
             I am a B.Tech Computer Science undergraduate using projects to learn systems, algorithms, software engineering, AI,
             and product thinking. The goal is not to look more senior than I am. The goal is to show the work honestly and make
             the technical decisions visible.
           </p>
         </div>
+        </div>
       </section>
 
-      <section className="section-rule mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.65fr_1.35fr] lg:px-12">
-        <div>
+      <section className="build-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="build-panel">
+        <div className="build-heading">
           <p className="meta-label">Milestones</p>
-          <h2 className="display-title mt-3 text-5xl tracking-[-0.02em]">Currently building.</h2>
+          <h2 className="display-title">Currently building.</h2>
         </div>
-        <div className="space-y-7">
+        <div className="build-list">
           {milestones.map((item, index) => (
-            <div className="grid gap-4 border-t border-ink/15 pt-6 dark:border-ivory/15 sm:grid-cols-[4rem_1fr]" key={item}>
-              <span className="font-mono text-sm text-vermilion">0{index + 1}</span>
-              <p className="text-xl leading-8 text-ink/75 dark:text-ivory/74">{item}</p>
+            <div className="build-item" key={item}>
+              <span>0{index + 1}</span>
+              <p>{item}</p>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
