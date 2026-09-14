@@ -177,6 +177,11 @@ body {
   background-size: 42px 42px;
 }
 
+.hero-section {
+  min-height: calc(100svh - 4.5rem);
+  padding-block: clamp(1.5rem, 3vh, 3rem);
+}
+
 .hero-shell {
   position: relative;
   z-index: 1;
@@ -630,13 +635,22 @@ body {
 }
 
 @media (min-width: 1024px) {
+  .hero-section {
+    padding-block: clamp(1.25rem, 2.4vh, 2.25rem);
+  }
+
   .hero-shell {
     grid-template-columns: minmax(0, 0.95fr) minmax(28rem, 1.05fr);
-    padding: 4rem 3.75rem 0;
+    min-height: min(40rem, calc(100svh - 14rem));
+    padding: clamp(2.25rem, 4.2vh, 3.25rem) 3.75rem 0;
+  }
+
+  .hero-copy .display-title {
+    font-size: clamp(5.4rem, 6.2vw, 7.1rem);
   }
 
   .portrait-stage {
-    min-height: 40rem;
+    min-height: min(36rem, calc(100svh - 16rem));
   }
 }
 

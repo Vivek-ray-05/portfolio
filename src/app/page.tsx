@@ -52,7 +52,7 @@ export default function Home() {
         </nav>
       </header>
 
-      <section className="relative mx-auto grid min-h-[88vh] max-w-7xl content-between px-5 py-12 sm:px-8 lg:px-12">
+      <section className="hero-section relative mx-auto grid max-w-7xl content-between px-5 sm:px-8 lg:px-12">
         <div className="hero-shell">
           <div className="hero-copy">
             <p className="meta-label mb-8">Bengaluru, India / CSE undergraduate</p>
