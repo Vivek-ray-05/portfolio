@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, WheelEvent } from "react";
@@ -14,6 +15,8 @@ type CardStyle = CSSProperties & {
   "--card-progress": string;
   "--card-scale": string;
   "--card-opacity": string;
+  "--card-y": string;
+  "--card-depth": string;
 };
 
 function ProjectVisual({ slug }: { slug: string }) {
@@ -121,7 +124,10 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
             const style: CardStyle = {
               "--card-progress": itemProgress.toFixed(3),
               "--card-scale": (1 - distance * 0.08).toFixed(3),
-              "--card-opacity": (1 - distance * 0.28).toFixed(3),
+              "--card-opacity": (1 - distance * 0.42).toFixed(3),
+              "--card-y": `${(distance * 1.7).toFixed(2)}rem`,
+              "--card-depth": `${(-distance * 10).toFixed(2)}rem`,
+              zIndex: 100 - Math.round(distance * 20),
             };
 
             return (
@@ -168,10 +174,27 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
                     ) : (
                       <span className="muted-link">Repo link coming soon</span>
                     )}
+                    {project.links.backend ? (
+                      <a className="link-button" href={project.links.backend} target="_blank" rel="noreferrer">
+                        Backend API
+                      </a>
+                    ) : null}
                   </div>
                 </div>
                 <div className="case-visual">
-                  <ProjectVisual slug={project.slug} />
+                  {project.media[0] ? (
+                    <div className="project-screenshot-frame">
+                      <Image
+                        src={project.media[0].src}
+                        alt={project.media[0].alt}
+                        fill
+                        sizes="(max-width: 768px) 86vw, 42vw"
+                        className="project-screenshot"
+                      />
+                    </div>
+                  ) : (
+                    <ProjectVisual slug={project.slug} />
+                  )}
                 </div>
               </article>
             );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
@@ -87,8 +88,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ) : (
               <span className="muted-link">Repo link coming soon</span>
             )}
+            {project.links.backend ? (
+              <a className="link-button" href={project.links.backend} target="_blank" rel="noreferrer">
+                Backend API
+              </a>
+            ) : null}
           </div>
         </section>
+
+        {project.media.length ? (
+          <section className="case-gallery py-16" aria-label={`${project.name} screenshots`}>
+            {project.media.map((item) => (
+              <figure className="case-gallery-item" key={item.src}>
+                <Image src={item.src} alt={item.alt} width={1600} height={900} className="case-gallery-image" />
+                <figcaption>{item.alt}</figcaption>
+              </figure>
+            ))}
+          </section>
+        ) : null}
 
         <section className="grid gap-8 py-16 lg:grid-cols-3">
           {project.highlights.map((highlight) => (

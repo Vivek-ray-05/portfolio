@@ -10,8 +10,13 @@ export type Project = {
   links: {
     caseStudy: string;
     demo?: string;
+    backend?: string;
     github?: string;
   };
+  media: {
+    src: string;
+    alt: string;
+  }[];
   highlights: string[];
   caseStudy: {
     intro: string;
@@ -35,7 +40,16 @@ export const projects: Project[] = [
     stack: ["FastAPI", "React", "PostgreSQL", "Redis", "WebSockets", "NetworkX"],
     links: {
       caseStudy: "/projects/rahat",
+      demo: "https://rahat-frontend-production.up.railway.app/",
+      backend: "https://rahat-backend-production.up.railway.app/",
+      github: "https://github.com/Vivek-ray-05/RAHAT",
     },
+    media: [
+      {
+        src: "/assets/projects/rahat-system-status.png",
+        alt: "RAHAT system status interface showing Bengaluru disaster evacuation telemetry",
+      },
+    ],
     highlights: [
       "28 Bengaluru localities with elevation, density, hospitals, shelters, and road-network data.",
       "Recommendations stay explainable, auditable, and reversible before human approval.",
@@ -75,7 +89,23 @@ export const projects: Project[] = [
     stack: ["Next.js", "React", "TypeScript", "Tailwind", "Zustand", "Framer Motion"],
     links: {
       caseStudy: "/projects/os-pro",
+      demo: "https://dem-os-cyan.vercel.app/scheduling",
+      github: "https://github.com/Vivek-ray-05/dem_os",
     },
+    media: [
+      {
+        src: "/assets/projects/ospro-scheduling.png",
+        alt: "OS-PRO CPU scheduling simulator with Gantt chart and process logs",
+      },
+      {
+        src: "/assets/projects/ospro-page-memory.png",
+        alt: "OS-PRO page replacement simulator showing frames, hits, and faults",
+      },
+      {
+        src: "/assets/projects/ospro-seek-visualiser.png",
+        alt: "OS-PRO disk seek visualiser showing request order and metrics",
+      },
+    ],
     highlights: [
       "CPU scheduling includes FCFS, SJF, SRTF, Round Robin, and Priority scheduling.",
       "Memory modules cover page replacement, address translation, TLB, and page tables.",
@@ -115,7 +145,22 @@ export const projects: Project[] = [
     stack: ["Java", "Spring Boot", "JSqlParser", "Algorithms", "B+ Trees", "Query Planning"],
     links: {
       caseStudy: "/projects/schemalenz",
+      github: "https://github.com/disha-a-a/Schema_Lenz",
     },
+    media: [
+      {
+        src: "/assets/projects/schemalenz-normalization.png",
+        alt: "SchemaLenz normalization decomposition flow from 1NF to BCNF",
+      },
+      {
+        src: "/assets/projects/schemalenz-query-plan.png",
+        alt: "SchemaLenz query plan comparison between original and optimized plans",
+      },
+      {
+        src: "/assets/projects/schemalenz-btree.png",
+        alt: "SchemaLenz B+ tree builder visualization",
+      },
+    ],
     highlights: [
       "Pipeline moves from flat files to FD closure, minimal cover, 3NF, BCNF, and decomposition.",
       "Explores query parsing, ASTs, heuristic optimization, and I/O cost comparison.",
@@ -146,9 +191,9 @@ export const projects: Project[] = [
 ];
 
 export const skills = {
-  Languages: ["Java", "Python", "JavaScript", "TypeScript"],
-  Frontend: ["React", "Next.js", "Tailwind CSS"],
-  Backend: ["FastAPI", "Spring Boot"],
-  "Data / Systems": ["PostgreSQL", "Redis", "NetworkX", "SQLModel"],
-  Tools: ["Git", "GitHub", "Docker", "Vercel", "Railway"],
+  Languages: ["Java", "Python", "C", "JavaScript", "TypeScript"],
+  Frontend: ["React", "Next.js", "HTML", "CSS", "Tailwind CSS"],
+  Backend: ["FastAPI", "Spring Boot", "JPA", "REST API"],
+  "Data / Systems": ["PostgreSQL", "MySQL", "Redis", "NetworkX", "OSMnx", "SQLModel"],
+  Tools: ["Git", "GitHub", "Docker", "Vercel", "Railway", "GenAI tools"],
 };

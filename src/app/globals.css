@@ -261,7 +261,7 @@ body {
   gap: clamp(1rem, 3vw, 2rem);
   width: max-content;
   min-width: 100%;
-  padding-inline: clamp(2rem, 12vw, 10rem);
+  padding-inline: clamp(1.5rem, 7vw, 6rem);
 }
 
 .case-study {
@@ -280,18 +280,22 @@ body {
 }
 
 .carousel-card {
-  flex: 0 0 min(58rem, 72vw);
+  flex: 0 0 min(72rem, 84vw);
   min-height: min(39rem, calc(100svh - 8rem));
   scroll-snap-align: center;
   transform:
-    translateX(calc(var(--card-progress) * -1.2rem))
+    translate3d(calc(var(--card-progress) * -4.5rem), var(--card-y), var(--card-depth))
     rotateY(calc(var(--card-progress) * -22deg))
     rotateZ(calc(var(--card-progress) * -1.6deg))
     scale(var(--card-scale));
   transform-style: preserve-3d;
   opacity: var(--card-opacity);
-  transition: box-shadow 180ms ease, border-color 180ms ease;
+  transition: box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease;
   will-change: transform, opacity;
+}
+
+.carousel-card:first-child {
+  margin-left: 0;
 }
 
 .carousel-card:hover {
@@ -335,7 +339,8 @@ body {
 }
 
 .case-study:not(.case-study-featured) .case-copy .display-title {
-  font-size: clamp(3.25rem, 5vw, 4.65rem);
+  font-size: clamp(2.8rem, 4.2vw, 4.2rem);
+  overflow-wrap: anywhere;
 }
 
 .case-headline {
@@ -370,6 +375,7 @@ body {
   position: relative;
   z-index: 1;
   display: grid;
+  align-self: stretch;
   min-width: 0;
   place-items: center;
 }
@@ -384,6 +390,28 @@ body {
     radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--apricot) 18%, transparent), transparent 12rem),
     color-mix(in srgb, var(--paper) 34%, transparent);
   opacity: 0.9;
+}
+
+.project-screenshot-frame {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background:
+    linear-gradient(90deg, rgba(23, 63, 47, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(23, 63, 47, 0.06) 1px, transparent 1px),
+    #0c1110;
+  background-size: 2.5rem 2.5rem;
+  box-shadow: 0 1.6rem 3rem rgba(18, 24, 18, 0.16);
+}
+
+.project-screenshot {
+  object-fit: contain;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.04);
 }
 
 .dark .case-headline {
@@ -414,6 +442,11 @@ body {
     radial-gradient(circle at 80% 12%, rgba(252, 208, 161, 0.14), transparent 12rem),
     linear-gradient(135deg, rgba(32, 38, 29, 0.78), rgba(17, 23, 15, 0.72));
   opacity: 1;
+}
+
+.dark .project-screenshot-frame {
+  border-color: rgba(241, 234, 220, 0.13);
+  box-shadow: 0 1.8rem 3.4rem rgba(0, 0, 0, 0.28);
 }
 
 .paper-noise {
@@ -1090,6 +1123,7 @@ body {
   display: grid;
   gap: 2.5rem;
   padding-block: 3rem;
+  padding-inline: clamp(1.25rem, 3vw, 2.25rem);
 }
 
 .about-panel::before,
@@ -1282,6 +1316,7 @@ body {
   display: grid;
   gap: 2rem;
   padding-block: 3rem;
+  padding-inline: clamp(1.25rem, 3vw, 2.25rem);
 }
 
 .build-list {
@@ -1372,6 +1407,7 @@ body {
   overflow: hidden;
   border-block: 1px solid var(--line);
   padding-block: 3rem;
+  padding-inline: clamp(1.25rem, 3vw, 2.25rem);
 }
 
 .signals-panel::before {
@@ -1654,6 +1690,40 @@ body {
   border-color: rgba(241, 234, 220, 0.14);
 }
 
+.case-gallery {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.case-gallery-item {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.case-gallery-image {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #0c1110;
+  box-shadow: 0 1.6rem 3rem rgba(18, 24, 18, 0.12);
+}
+
+.case-gallery-item figcaption {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+.dark .case-gallery-image {
+  border-color: rgba(241, 234, 220, 0.13);
+  box-shadow: 0 1.8rem 3.4rem rgba(0, 0, 0, 0.28);
+}
+
 @keyframes routeMove {
   to {
     stroke-dashoffset: -36;
@@ -1788,6 +1858,19 @@ body {
     text-align: right;
   }
 
+  .carousel-track {
+    gap: 0;
+    padding-inline: clamp(2rem, 9vw, 8rem);
+  }
+
+  .carousel-card {
+    margin-left: clamp(-10rem, -11vw, -5rem);
+  }
+
+  .carousel-card:first-child {
+    margin-left: 0;
+  }
+
   .case-study {
     grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
     align-items: center;
@@ -1904,6 +1987,10 @@ body {
 
   .case-study {
     padding-block: 2.5rem;
+  }
+
+  .project-screenshot-frame {
+    min-height: 20rem;
   }
 
   .about-section,
@@ -2089,6 +2176,10 @@ body {
   .project-visual,
   .map-visual {
     min-height: 20rem;
+  }
+
+  .project-screenshot-frame {
+    min-height: 14rem;
   }
 
   .map-label,

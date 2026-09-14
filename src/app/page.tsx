@@ -6,8 +6,10 @@ import { projects, skills } from "@/data/projects";
 
 const profiles = [
   { label: "GitHub", value: "Project repositories and build history", href: "https://github.com/Vivek-ray-05" },
-  { label: "LeetCode", value: "Java-first problem solving practice", href: "" },
-  { label: "Resume", value: "Available as the source of truth gets finalized", href: "" },
+  { label: "LinkedIn", value: "Professional profile and updates", href: "https://www.linkedin.com/in/vivek-ray-26aa64388" },
+  { label: "LeetCode", value: "Problem solving practice as topato_chips", href: "https://leetcode.com/u/topato_chips/" },
+  { label: "Codeforces", value: "Competitive programming profile as topato_chips", href: "https://codeforces.com/profile/topato_chips" },
+  { label: "Resume", value: "Download Vivek Ray's current resume", href: "/assets/resume/VIVEK_RAY.docx" },
 ];
 
 const milestones = [
@@ -56,6 +58,9 @@ export default function Home() {
             </a>
             <a className="nav-link" href="https://github.com/Vivek-ray-05" target="_blank" rel="noreferrer">
               GitHub
+            </a>
+            <a className="nav-link" href="https://www.linkedin.com/in/vivek-ray-26aa64388" target="_blank" rel="noreferrer">
+              LinkedIn
             </a>
           </div>
         </nav>
@@ -135,9 +140,6 @@ export default function Home() {
             <p className="meta-label">Selected work</p>
             <h2 className="display-title">Substance first.</h2>
           </div>
-          <p>
-            A horizontal project carousel built to grow as more work gets finished, without turning the page into a long parade.
-          </p>
         </div>
 
         <ProjectCarousel projects={projects} />
@@ -249,23 +251,27 @@ export default function Home() {
             </p>
           </div>
           <div className="contact-actions">
-            <a className="contact-link" href="mailto:realvivek100@gmail.com">
+            <a className="contact-link" href="mailto:vray0954@gmail.com">
               <span>Email</span>
-              <strong>realvivek100@gmail.com</strong>
+              <strong>vray0954@gmail.com</strong>
+            </a>
+            <a className="contact-link" href="tel:+919678877087">
+              <span>Phone</span>
+              <strong>+91 9678877087</strong>
             </a>
             <a className="contact-link" href="https://github.com/Vivek-ray-05" target="_blank" rel="noreferrer">
               <span>GitHub</span>
               <strong>Vivek-ray-05</strong>
             </a>
-            <div className="contact-link is-muted" aria-disabled="true">
+            <a className="contact-link" href="https://www.linkedin.com/in/vivek-ray-26aa64388" target="_blank" rel="noreferrer">
               <span>LinkedIn</span>
-              <strong>Coming soon</strong>
-            </div>
+              <strong>vivek-ray-26aa64388</strong>
+            </a>
           </div>
           <div className="contact-status">
             <span>Bengaluru, India</span>
-            <span>Software engineering / AI-ML / systems</span>
-            <span>Learning in public</span>
+            <span>Ramaiah Institute of Technology / CSE</span>
+            <span>CGPA 9.40 / 10.00</span>
           </div>
         </div>
       </section>
