@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { OsProVisual, RahatVisual, SchemaVisual } from "@/components/project-visuals";
+import { ProjectCarousel } from "@/components/project-carousel";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { projects, skills } from "@/data/projects";
 
@@ -33,15 +33,7 @@ const identityNotes = [
   },
 ];
 
-function ProjectVisual({ slug }: { slug: string }) {
-  if (slug === "rahat") return <RahatVisual />;
-  if (slug === "os-pro") return <OsProVisual />;
-  return <SchemaVisual />;
-}
-
 export default function Home() {
-  const [rahat, osPro, schemaLenz] = projects;
-
   return (
     <main className="paper-noise min-h-screen overflow-hidden bg-ivory text-ink dark:bg-ink dark:text-ivory">
       <header className="sticky top-0 z-50 border-b border-ink/10 bg-ivory/82 backdrop-blur-xl dark:border-ivory/10 dark:bg-ink/82">
@@ -144,78 +136,11 @@ export default function Home() {
             <h2 className="display-title">Substance first.</h2>
           </div>
           <p>
-            Three projects, three different strengths: systems engineering, interactive fundamentals, and database depth.
+            A horizontal project carousel built to grow as more work gets finished, without turning the page into a long parade.
           </p>
         </div>
 
-        <article className="case-study case-study-featured">
-          <div className="case-copy">
-            <p className="meta-label">
-              {rahat.index} / {rahat.eyebrow}
-            </p>
-            <h3 className="display-title">{rahat.name}</h3>
-            <p className="case-headline">{rahat.headline}</p>
-            <p className="case-summary">{rahat.summary}</p>
-            <div className="case-stack">
-              {rahat.stack.slice(0, 4).map((item) => (
-                <span className="tech-pill" key={item}>
-                  {item}
-                </span>
-              ))}
-            </div>
-            <div className="case-links">
-              <Link className="link-button" href={rahat.links.caseStudy}>
-                View case study
-              </Link>
-              <span className="muted-link">Demo link coming soon</span>
-              <span className="muted-link">Repo link coming soon</span>
-            </div>
-          </div>
-          <div className="case-visual">
-            <ProjectVisual slug={rahat.slug} />
-          </div>
-        </article>
-
-        <article className="case-study case-study-reverse">
-          <div className="case-visual">
-            <ProjectVisual slug={osPro.slug} />
-          </div>
-          <div className="case-copy">
-            <p className="meta-label">
-              {osPro.index} / {osPro.eyebrow}
-            </p>
-            <h3 className="display-title">{osPro.name}</h3>
-            <p className="case-headline">{osPro.headline}</p>
-            <p className="case-summary">{osPro.summary}</p>
-            <div className="case-links">
-              <Link className="link-button" href={osPro.links.caseStudy}>
-                View case study
-              </Link>
-            </div>
-          </div>
-        </article>
-
-        <article className="case-study">
-          <div className="case-copy">
-            <div className="case-meta-row">
-              <p className="meta-label">
-                {schemaLenz.index} / {schemaLenz.eyebrow}
-              </p>
-              <span className="status-pill">{schemaLenz.status}</span>
-            </div>
-            <h3 className="display-title">{schemaLenz.name}</h3>
-            <p className="case-headline">{schemaLenz.headline}</p>
-            <p className="case-summary">{schemaLenz.summary}</p>
-            <div className="case-links">
-              <Link className="link-button" href={schemaLenz.links.caseStudy}>
-                View case study
-              </Link>
-            </div>
-          </div>
-          <div className="case-visual">
-            <ProjectVisual slug={schemaLenz.slug} />
-          </div>
-        </article>
+        <ProjectCarousel projects={projects} />
       </section>
 
       <section id="about" className="about-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">

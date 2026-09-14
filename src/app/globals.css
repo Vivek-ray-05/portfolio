@@ -175,26 +175,154 @@ body {
   line-height: 1.7;
 }
 
+.project-carousel {
+  position: relative;
+}
+
+.carousel-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 58%, transparent);
+}
+
+.carousel-status > div {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.carousel-status > div span {
+  width: 1.6rem;
+  height: 1px;
+  background: var(--line);
+  transition: background 180ms ease, width 180ms ease;
+}
+
+.carousel-status > div .is-active {
+  width: 3rem;
+  background: var(--vermilion);
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-inline: -1.25rem;
+  padding: 1.25rem;
+  perspective: 86rem;
+  perspective-origin: 50% 48%;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--vermilion) 48%, transparent) transparent;
+}
+
+.carousel-viewport::before,
+.carousel-viewport::after {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: block;
+  width: clamp(1rem, 5vw, 4rem);
+  height: 1px;
+  content: "";
+  pointer-events: none;
+}
+
+.carousel-viewport::before {
+  left: 0;
+  float: left;
+  box-shadow: -1.4rem 0 3.2rem 4rem var(--background);
+}
+
+.carousel-viewport::after {
+  right: 0;
+  float: right;
+  box-shadow: 1.4rem 0 3.2rem 4rem var(--background);
+}
+
+.carousel-viewport::-webkit-scrollbar {
+  height: 0.55rem;
+}
+
+.carousel-viewport::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vermilion) 42%, transparent);
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1rem, 3vw, 2rem);
+  width: max-content;
+  min-width: 100%;
+  padding-inline: clamp(2rem, 12vw, 10rem);
+}
+
 .case-study {
   position: relative;
   display: grid;
   gap: 2rem;
   overflow: hidden;
-  border-top: 1px solid var(--line);
-  padding-block: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--green) 10%, transparent), transparent 20rem),
+    radial-gradient(circle at 14% 90%, color-mix(in srgb, var(--apricot) 20%, transparent), transparent 18rem),
+    color-mix(in srgb, var(--paper) 76%, transparent);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  box-shadow: 0 1.8rem 3.8rem rgba(18, 24, 18, 0.08);
+}
+
+.carousel-card {
+  flex: 0 0 min(58rem, 72vw);
+  min-height: min(39rem, calc(100svh - 8rem));
+  scroll-snap-align: center;
+  transform:
+    translateX(calc(var(--card-progress) * -1.2rem))
+    rotateY(calc(var(--card-progress) * -22deg))
+    rotateZ(calc(var(--card-progress) * -1.6deg))
+    scale(var(--card-scale));
+  transform-style: preserve-3d;
+  opacity: var(--card-opacity);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+  will-change: transform, opacity;
+}
+
+.carousel-card:hover {
+  border-color: color-mix(in srgb, var(--vermilion) 34%, var(--line));
 }
 
 .case-study::before {
   position: absolute;
-  inset: 2rem auto auto 0;
-  width: 10rem;
-  height: 1px;
+  inset: 0;
   content: "";
-  background: linear-gradient(90deg, var(--vermilion), transparent);
-  opacity: 0.55;
+  background:
+    linear-gradient(90deg, rgba(23, 63, 47, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(23, 63, 47, 0.04) 1px, transparent 1px);
+  background-size: 3.75rem 3.75rem;
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.case-study::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--apricot) 22%, transparent);
 }
 
 .case-copy {
+  position: relative;
+  z-index: 2;
   display: grid;
   align-content: center;
   gap: 1.25rem;
@@ -240,6 +368,10 @@ body {
 
 .case-visual {
   position: relative;
+  z-index: 1;
+  display: grid;
+  min-width: 0;
+  place-items: center;
 }
 
 .case-visual::before {
@@ -256,6 +388,25 @@ body {
 
 .dark .case-headline {
   color: var(--sage);
+}
+
+.dark .case-study {
+  border-color: rgba(241, 234, 220, 0.13);
+  background:
+    radial-gradient(circle at 74% 22%, rgba(107, 215, 241, 0.1), transparent 20rem),
+    radial-gradient(circle at 16% 82%, rgba(252, 208, 161, 0.12), transparent 18rem),
+    linear-gradient(135deg, rgba(32, 38, 29, 0.95), rgba(12, 17, 11, 0.98));
+  box-shadow: 0 2.2rem 4.5rem rgba(0, 0, 0, 0.26);
+}
+
+.dark .case-study::before {
+  background:
+    linear-gradient(90deg, rgba(252, 208, 161, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(252, 208, 161, 0.035) 1px, transparent 1px);
+}
+
+.dark .case-study::after {
+  box-shadow: inset 0 0 0 1px rgba(252, 208, 161, 0.08);
 }
 
 .dark .case-visual::before {
@@ -1472,8 +1623,11 @@ body {
   .orbit-ring,
   .identity-card,
   .route-line,
-  .process-bar {
+  .process-bar,
+  .carousel-card {
     animation: none;
+    transform: none;
+    opacity: 1;
   }
 }
 
@@ -1518,15 +1672,6 @@ body {
   .case-study {
     grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
     align-items: center;
-    padding-block: 3.5rem;
-  }
-
-  .case-study-reverse {
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  }
-
-  .case-study-reverse .case-copy {
-    padding-left: 1.5rem;
   }
 
   .about-panel {
@@ -1626,12 +1771,20 @@ body {
     padding-block: 2.5rem 4rem;
   }
 
-  .case-study {
-    padding-block: 2.5rem;
+  .carousel-track {
+    padding-inline: 1.25rem;
   }
 
-  .case-study-reverse .case-copy {
-    order: -1;
+  .carousel-card {
+    flex-basis: min(38rem, 82vw);
+    min-height: auto;
+    transform:
+      rotateY(calc(var(--card-progress) * -12deg))
+      scale(var(--card-scale));
+  }
+
+  .case-study {
+    padding-block: 2.5rem;
   }
 
   .about-section,
@@ -1760,13 +1913,41 @@ body {
     font-size: 0.98rem;
   }
 
+  .carousel-status {
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+
+  .carousel-status > div span {
+    width: 1.05rem;
+  }
+
+  .carousel-status > div .is-active {
+    width: 2rem;
+  }
+
+  .carousel-viewport {
+    margin-inline: -1rem;
+    padding: 1rem;
+    perspective: 48rem;
+  }
+
+  .carousel-track {
+    gap: 0.9rem;
+    padding-inline: 0.6rem;
+  }
+
+  .carousel-card {
+    flex-basis: 86vw;
+    min-height: auto;
+    transform:
+      rotateY(calc(var(--card-progress) * -8deg))
+      scale(var(--card-scale));
+  }
+
   .case-study {
     gap: 1.5rem;
     padding-block: 2rem;
-  }
-
-  .case-study-reverse .case-copy {
-    order: -1;
   }
 
   .case-copy .display-title {

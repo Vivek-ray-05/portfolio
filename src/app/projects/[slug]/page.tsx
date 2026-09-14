@@ -72,6 +72,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </span>
             ))}
           </div>
+          <div className="mt-8 flex flex-wrap gap-5">
+            {project.links.demo ? (
+              <a className="link-button" href={project.links.demo} target="_blank" rel="noreferrer">
+                Live demo
+              </a>
+            ) : (
+              <span className="muted-link">Demo link coming soon</span>
+            )}
+            {project.links.github ? (
+              <a className="link-button" href={project.links.github} target="_blank" rel="noreferrer">
+                Repository
+              </a>
+            ) : (
+              <span className="muted-link">Repo link coming soon</span>
+            )}
+          </div>
         </section>
 
         <section className="grid gap-8 py-16 lg:grid-cols-3">
