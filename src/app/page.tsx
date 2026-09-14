@@ -16,6 +16,21 @@ const milestones = [
   "Polishing SchemaLenz as a database-systems project with normalization and query-planning depth.",
 ];
 
+const identityNotes = [
+  {
+    label: "Software systems",
+    value: "I care about how pieces connect: data, APIs, interfaces, decisions, and failure paths.",
+  },
+  {
+    label: "Interactive learning",
+    value: "I build tools that make abstract concepts easier to see, test, and reason about.",
+  },
+  {
+    label: "AI with control",
+    value: "I like AI where recommendations stay explainable and humans still make the final call.",
+  },
+];
+
 function ProjectVisual({ slug }: { slug: string }) {
   if (slug === "rahat") return <RahatVisual />;
   if (slug === "os-pro") return <OsProVisual />;
@@ -99,10 +114,24 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="relative z-10 mt-16 grid gap-4 border-t border-ink/15 pt-5 text-sm text-ink/62 dark:border-ivory/15 dark:text-ivory/62 sm:grid-cols-3">
-          <span>Software systems</span>
-          <span>Interactive learning tools</span>
-          <span>Database and AI experiments</span>
+      </section>
+
+      <section className="identity-band mx-auto max-w-7xl px-5 sm:px-8 lg:px-12" aria-label="Professional identity">
+        <div className="identity-panel">
+          <div className="identity-intro">
+            <p className="meta-label">Professional identity</p>
+            <h2 className="display-title">
+              Building is how I turn concepts into judgment.
+            </h2>
+          </div>
+          <div className="identity-grid">
+            {identityNotes.map((note) => (
+              <article className="identity-note" key={note.label}>
+                <span>{note.label}</span>
+                <p>{note.value}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
