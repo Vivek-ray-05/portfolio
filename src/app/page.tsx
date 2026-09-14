@@ -310,33 +310,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-12">
-        <div className="border-y border-ink/15 py-16 dark:border-ivory/15">
-          <p className="meta-label">Contact</p>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <h2 className="display-title text-5xl leading-[0.96] tracking-[-0.025em] sm:text-7xl">
-              Have something interesting in mind?
-            </h2>
-            <div>
-              <p className="text-xl leading-8 text-ink/72 dark:text-ivory/72">
-                Open to SWE internships, relevant AI/ML opportunities, thoughtful freelance work, and research collaboration where the fit is real.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-5">
-                <a className="link-button" href="mailto:realvivek100@gmail.com">
-                  Email
-                </a>
-                <a className="link-button" href="https://github.com/Vivek-ray-05" target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-                <span className="muted-link">LinkedIn coming soon</span>
-              </div>
+      <section id="contact" className="contact-section mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+        <div className="contact-panel">
+          <div className="contact-copy">
+            <p className="meta-label">Contact</p>
+            <h2 className="display-title">Have something interesting in mind?</h2>
+            <p>
+              Open to SWE internships, relevant AI/ML opportunities, thoughtful freelance work, and research collaboration where
+              the fit is real.
+            </p>
+          </div>
+          <div className="contact-actions">
+            <a className="contact-link" href="mailto:realvivek100@gmail.com">
+              <span>Email</span>
+              <strong>realvivek100@gmail.com</strong>
+            </a>
+            <a className="contact-link" href="https://github.com/Vivek-ray-05" target="_blank" rel="noreferrer">
+              <span>GitHub</span>
+              <strong>Vivek-ray-05</strong>
+            </a>
+            <div className="contact-link is-muted" aria-disabled="true">
+              <span>LinkedIn</span>
+              <strong>Coming soon</strong>
             </div>
+          </div>
+          <div className="contact-status">
+            <span>Bengaluru, India</span>
+            <span>Software engineering / AI-ML / systems</span>
+            <span>Learning in public</span>
           </div>
         </div>
       </section>
 
-      <footer className="px-5 pb-8 text-center text-sm text-ink/55 dark:text-ivory/55">
-        Built by Vivek Ray. Learning in public, one project at a time.
+      <footer className="site-footer mx-auto max-w-7xl px-5 pb-8 sm:px-8 lg:px-12">
+        <span>Built by Vivek Ray.</span>
+        <span>Learning in public, one project at a time.</span>
       </footer>
     </main>
   );
