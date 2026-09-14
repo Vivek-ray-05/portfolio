@@ -1319,6 +1319,15 @@ body {
   padding-inline: clamp(1.25rem, 3vw, 2.25rem);
 }
 
+.build-heading {
+  min-width: 0;
+}
+
+.build-heading .display-title {
+  max-width: 8.5ch;
+  font-size: clamp(3rem, 5.2vw, 5.5rem);
+}
+
 .build-list {
   display: grid;
   gap: 1rem;
@@ -1882,7 +1891,8 @@ body {
   }
 
   .build-panel {
-    grid-template-columns: minmax(18rem, 0.68fr) minmax(0, 1.32fr);
+    grid-template-columns: minmax(0, 0.72fr) minmax(30rem, 1.28fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
   }
 
   .build-list {
