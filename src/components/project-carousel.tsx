@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, WheelEvent } from "react";
+import type { CSSProperties, MouseEvent, PointerEvent } from "react";
 import { OsProVisual, RahatVisual, SchemaVisual } from "@/components/project-visuals";
 import type { Project } from "@/data/projects";
 
@@ -12,11 +12,10 @@ type ProjectCarouselProps = {
 };
 
 type CardStyle = CSSProperties & {
-  "--card-progress": string;
+  "--card-offset": string;
   "--card-scale": string;
   "--card-opacity": string;
   "--card-y": string;
-  "--card-depth": string;
 };
 
 function ProjectVisual({ slug }: { slug: string }) {
@@ -27,84 +26,102 @@ function ProjectVisual({ slug }: { slug: string }) {
 
 export function ProjectCarousel({ projects }: ProjectCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const [progress, setProgress] = useState(() => projects.map((_, index) => index));
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const wrapLockRef = useRef(0);
+  const lastWheelAtRef = useRef(-Infinity);
+  const linkPressRef = useRef<{ link: Element; x: number; y: number } | null>(null);
+  const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const currentViewport = viewportRef.current;
+    const viewport = viewportRef.current;
+    const scroller = scrollerRef.current;
 
-    if (!currentViewport) {
+    if (!viewport || !scroller) {
       return;
     }
 
-    const viewportElement = currentViewport;
-    let frame = 0;
-
-    function updateCards(viewport: HTMLDivElement) {
-      frame = 0;
-      const viewportBox = viewport.getBoundingClientRect();
-      const viewportCenter = viewportBox.left + viewportBox.width / 2;
-      const nextProgress = cardRefs.current.map((card) => {
-        if (!card) {
-          return 0;
-        }
-
-        const cardBox = card.getBoundingClientRect();
-        const cardCenter = cardBox.left + cardBox.width / 2;
-        return Math.max(-1.4, Math.min(1.4, (cardCenter - viewportCenter) / cardBox.width));
-      });
-
-      const nextActiveIndex = nextProgress.reduce((nearestIndex, itemProgress, index) => {
-        return Math.abs(itemProgress) < Math.abs(nextProgress[nearestIndex]) ? index : nearestIndex;
-      }, 0);
-
-      setProgress(nextProgress);
-      setActiveIndex(nextActiveIndex);
+    function advance(delta: number) {
+      const now = performance.now();
+      lastWheelAtRef.current = now;
+      linkPressRef.current = null;
+      if (projects.length < 2 || Math.abs(delta) < 8 || now < wrapLockRef.current) return;
+      wrapLockRef.current = now + 620;
+      const nextIndex = (activeIndexRef.current + (delta > 0 ? 1 : -1) + projects.length) % projects.length;
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
     }
 
-    function scheduleUpdate() {
-      if (frame) {
-        return;
+    // Keep native touchpad scrolling away from either history-navigation boundary.
+    let center = 0;
+    function centerScroll() {
+      center = (scroller!.scrollWidth - scroller!.clientWidth) / 2;
+      scroller!.scrollLeft = center;
+    }
+    function handleNativeScroll() {
+      const delta = scroller!.scrollLeft - center;
+      if (Math.abs(delta) < 1) return;
+      advance(delta);
+      scroller!.scrollLeft = center;
+    }
+    centerScroll();
+    const observer = new ResizeObserver(centerScroll);
+    observer.observe(scroller);
+    scroller.addEventListener("scroll", handleNativeScroll);
+
+    function handleWheel(event: globalThis.WheelEvent) {
+      if (event.ctrlKey || projects.length < 2) return;
+      // Cancel the native swipe even during animation and trackpad momentum.
+      event.preventDefault();
+      const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      advance(delta);
+    }
+
+    function capturePageSwipe(event: globalThis.WheelEvent) {
+      if (event.ctrlKey) return;
+      const overCarousel = event.composedPath().includes(viewport!);
+      if (overCarousel) {
+        handleWheel(event);
+      } else if (event.deltaX !== 0) {
+        // Catch the first horizontal event before Chrome starts a history gesture,
+        // including gestures starting in the gutter or leaving the moving cards.
+        event.preventDefault();
       }
-
-      frame = window.requestAnimationFrame(() => updateCards(viewportElement));
     }
 
-    updateCards(viewportElement);
-    viewportElement.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("wheel", capturePageSwipe, { passive: false, capture: true });
 
     return () => {
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-      }
-
-      viewportElement.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
+      observer.disconnect();
+      scroller.removeEventListener("scroll", handleNativeScroll);
+      window.removeEventListener("wheel", capturePageSwipe, true);
     };
-  }, [projects]);
+  }, [projects.length]);
 
-  function handleWheel(event: WheelEvent<HTMLDivElement>) {
-    const viewport = viewportRef.current;
+  function recordLinkPress(event: PointerEvent<HTMLDivElement>) {
+    const link = event.target instanceof Element ? event.target.closest("a") : null;
+    linkPressRef.current = link ? { link, x: event.clientX, y: event.clientY } : null;
+  }
 
-    if (!viewport || Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-      return;
+  function stopAccidentalLinkClick(event: MouseEvent<HTMLDivElement>) {
+    const clickedLink = event.target instanceof Element ? event.target.closest("a") : null;
+    if (!clickedLink) return;
+    const press = linkPressRef.current;
+    linkPressRef.current = null;
+    // Keyboard activation remains available; pointer activation must begin on this link.
+    if (event.detail === 0) return;
+    if (performance.now() - lastWheelAtRef.current < 700 ||
+        !press || press.link !== clickedLink ||
+        Math.hypot(event.clientX - press.x, event.clientY - press.y) > 8) {
+      event.preventDefault();
+      event.stopPropagation();
     }
-
-    const atStart = viewport.scrollLeft <= 0;
-    const atEnd = viewport.scrollLeft + viewport.clientWidth >= viewport.scrollWidth - 1;
-
-    if ((atStart && event.deltaY < 0) || (atEnd && event.deltaY > 0)) {
-      return;
-    }
-
-    event.preventDefault();
-    viewport.scrollLeft += event.deltaY;
   }
 
   return (
-    <div className="project-carousel" aria-label="Selected project carousel">
+    <div className="project-carousel" aria-label="Selected project carousel" ref={viewportRef}
+      onPointerDownCapture={recordLinkPress} onPointerCancelCapture={() => { linkPressRef.current = null; }}
+      onClickCapture={stopAccidentalLinkClick} onAuxClickCapture={stopAccidentalLinkClick}>
       <div className="carousel-status">
         <span>
           {projects[activeIndex]?.index} / {projects.length.toString().padStart(2, "0")} / Scroll sideways
@@ -116,17 +133,25 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
         </div>
       </div>
 
-      <div className="carousel-viewport" ref={viewportRef} onWheel={handleWheel}>
+      <div className="carousel-viewport" ref={scrollerRef}>
         <div className="carousel-track">
           {projects.map((project, index) => {
-            const itemProgress = progress[index] ?? index;
-            const distance = Math.min(1, Math.abs(itemProgress));
+            let cardOffset = index - activeIndex;
+
+            if (cardOffset > projects.length / 2) {
+              cardOffset -= projects.length;
+            }
+
+            if (cardOffset < -projects.length / 2) {
+              cardOffset += projects.length;
+            }
+
+            const distance = Math.min(1, Math.abs(cardOffset));
             const style: CardStyle = {
-              "--card-progress": itemProgress.toFixed(3),
-              "--card-scale": (1 - distance * 0.08).toFixed(3),
-              "--card-opacity": (1 - distance * 0.42).toFixed(3),
-              "--card-y": `${(distance * 1.7).toFixed(2)}rem`,
-              "--card-depth": `${(-distance * 10).toFixed(2)}rem`,
+              "--card-offset": cardOffset.toFixed(3),
+              "--card-scale": (1 - distance * 0.04).toFixed(3),
+              "--card-opacity": (1 - distance * 0.26).toFixed(3),
+              "--card-y": `${(distance * 0.8).toFixed(2)}rem`,
               zIndex: 100 - Math.round(distance * 20),
             };
 
@@ -134,9 +159,8 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
               <article
                 className="case-study carousel-card"
                 key={project.slug}
-                ref={(element) => {
-                  cardRefs.current[index] = element;
-                }}
+                data-active={index === activeIndex}
+                inert={index !== activeIndex}
                 style={style}
               >
                 <div className="case-copy">

@@ -46,6 +46,12 @@
   --line: rgba(241, 234, 220, 0.16);
 }
 
+html,
+body {
+  overscroll-behavior-x: none;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -177,6 +183,8 @@ body {
 
 .project-carousel {
   position: relative;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 .carousel-status {
@@ -211,57 +219,27 @@ body {
 
 .carousel-viewport {
   position: relative;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   margin-inline: -1.25rem;
   padding: 1.25rem;
   perspective: 86rem;
   perspective-origin: 50% 48%;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--vermilion) 48%, transparent) transparent;
-}
-
-.carousel-viewport::before,
-.carousel-viewport::after {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  display: block;
-  width: clamp(1rem, 5vw, 4rem);
-  height: 1px;
-  content: "";
-  pointer-events: none;
-}
-
-.carousel-viewport::before {
-  left: 0;
-  float: left;
-  box-shadow: -1.4rem 0 3.2rem 4rem var(--background);
-}
-
-.carousel-viewport::after {
-  right: 0;
-  float: right;
-  box-shadow: 1.4rem 0 3.2rem 4rem var(--background);
+  overscroll-behavior-x: none;
+  scrollbar-width: none;
+  scroll-behavior: auto;
+  touch-action: pan-y;
 }
 
 .carousel-viewport::-webkit-scrollbar {
-  height: 0.55rem;
-}
-
-.carousel-viewport::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--vermilion) 42%, transparent);
+  display: none;
 }
 
 .carousel-track {
-  display: flex;
-  align-items: stretch;
-  gap: clamp(1rem, 3vw, 2rem);
-  width: max-content;
-  min-width: 100%;
-  padding-inline: clamp(1.5rem, 7vw, 6rem);
+  position: relative;
+  width: 300%;
+  overflow-x: clip;
+  min-height: min(40rem, calc(100svh - 7rem));
 }
 
 .case-study {
@@ -280,22 +258,27 @@ body {
 }
 
 .carousel-card {
-  flex: 0 0 min(72rem, 84vw);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(72rem, 84vw);
   min-height: min(39rem, calc(100svh - 8rem));
-  scroll-snap-align: center;
   transform:
-    translate3d(calc(var(--card-progress) * -4.5rem), var(--card-y), var(--card-depth))
-    rotateY(calc(var(--card-progress) * -22deg))
-    rotateZ(calc(var(--card-progress) * -1.6deg))
+    translateX(calc(-50% + var(--card-offset) * clamp(16rem, 42vw, 34rem)))
+    translateY(var(--card-y))
     scale(var(--card-scale));
-  transform-style: preserve-3d;
   opacity: var(--card-opacity);
-  transition: box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease;
+  pointer-events: none;
+  transition:
+    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 260ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
   will-change: transform, opacity;
 }
 
-.carousel-card:first-child {
-  margin-left: 0;
+.carousel-card[data-active="true"] {
+  pointer-events: auto;
 }
 
 .carousel-card:hover {
@@ -1867,19 +1850,6 @@ body {
     text-align: right;
   }
 
-  .carousel-track {
-    gap: 0;
-    padding-inline: clamp(2rem, 9vw, 8rem);
-  }
-
-  .carousel-card {
-    margin-left: clamp(-10rem, -11vw, -5rem);
-  }
-
-  .carousel-card:first-child {
-    margin-left: 0;
-  }
-
   .case-study {
     grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
     align-items: center;
@@ -1983,16 +1953,9 @@ body {
     padding-block: 2.5rem 4rem;
   }
 
-  .carousel-track {
-    padding-inline: 1.25rem;
-  }
-
   .carousel-card {
-    flex-basis: min(38rem, 82vw);
+    width: min(38rem, 82vw);
     min-height: auto;
-    transform:
-      rotateY(calc(var(--card-progress) * -12deg))
-      scale(var(--card-scale));
   }
 
   .case-study {
@@ -2148,17 +2111,9 @@ body {
     perspective: 48rem;
   }
 
-  .carousel-track {
-    gap: 0.9rem;
-    padding-inline: 0.6rem;
-  }
-
   .carousel-card {
-    flex-basis: 86vw;
+    width: 86vw;
     min-height: auto;
-    transform:
-      rotateY(calc(var(--card-progress) * -8deg))
-      scale(var(--card-scale));
   }
 
   .case-study {
