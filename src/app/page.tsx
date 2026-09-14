@@ -150,6 +150,8 @@ export default function Home() {
           <div className="learning-loop" aria-hidden="true">
             <div className="loop-orbit loop-orbit-one" />
             <div className="loop-orbit loop-orbit-two" />
+            <span className="loop-signal loop-signal-one" />
+            <span className="loop-signal loop-signal-two" />
             <div className="loop-core">
               <span>Current mode</span>
               <strong>Project-led learning</strong>
