@@ -1172,16 +1172,19 @@ body {
 .loop-signal {
   position: absolute;
   z-index: 2;
+  left: 0;
+  top: 0;
   width: 0.5rem;
   aspect-ratio: 1;
   border-radius: 999px;
   background: var(--apricot);
   box-shadow: 0 0 0 0.36rem color-mix(in srgb, var(--apricot) 14%, transparent);
+  offset-anchor: 50% 50%;
+  offset-path: ellipse(50% 50% at 50% 50%);
   offset-rotate: 0deg;
 }
 
 .loop-signal-one {
-  offset-path: ellipse(34% 34% at 50% 50%);
   offset-distance: 12%;
   animation: signalTravel 12s linear infinite;
 }
@@ -1190,7 +1193,6 @@ body {
   width: 0.38rem;
   background: var(--sage);
   box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--sage) 18%, transparent);
-  offset-path: ellipse(42% 24% at 50% 50%);
   offset-distance: 62%;
   animation: signalTravel 17s linear infinite reverse;
 }

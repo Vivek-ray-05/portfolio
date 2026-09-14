@@ -147,11 +147,12 @@ export default function Home() {
         <div className="about-panel">
         <div className="about-visual-wrap">
           <p className="meta-label">About</p>
-          <div className="learning-loop" aria-hidden="true">
-            <div className="loop-orbit loop-orbit-one" />
-            <div className="loop-orbit loop-orbit-two" />
-            <span className="loop-signal loop-signal-one" />
-            <span className="loop-signal loop-signal-two" />
+            <div className="learning-loop" aria-hidden="true">
+              <div className="loop-orbit loop-orbit-one" />
+            <div className="loop-orbit loop-orbit-two">
+              <span className="loop-signal loop-signal-one" />
+              <span className="loop-signal loop-signal-two" />
+            </div>
             <div className="loop-core">
               <span>Current mode</span>
               <strong>Project-led learning</strong>
